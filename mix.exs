@@ -5,7 +5,7 @@ defmodule Crawler.Mixfile do
     [
       app:               :crawler,
       version:           "1.0.0",
-      elixir:            "~> 1.5",
+      elixir:            "~> 1.7.3",
       package:           package(),
       name:              "Crawler",
       description:       "A high performance web crawler in Elixir.",
@@ -27,14 +27,15 @@ defmodule Crawler.Mixfile do
 
   defp deps do
     [
-      {:httpoison,   "~> 0.13"},
-      {:floki,       "~> 0.18"},
+      {:httpoison,   "~> 1.3"},
+      {:floki,       "~> 0.20.4"},
       {:opq,         "~> 3.0"},
       {:retry,       "~> 0.10"},
-      {:ex_doc,      ">= 0.0.0", only: :dev},
-      {:dialyxir,    "~> 0.5",   only: [:dev, :test], runtime: false},
-      {:bypass,      "~> 0.8",   only: :test},
-      {:excoveralls, "~> 0.7",   only: :test},
+      {:cowboy,      "~> 2.5.0"},
+      {:ex_doc,      ">= 0.0.0",  only: :dev},
+      {:dialyxir,    "~> 0.5",    only: [:dev, :test], runtime: false},
+      {:bypass,      "~> 0.9.0",  only: :test},
+      {:excoveralls, "~> 0.10.1", only: :test}
     ]
   end
 
@@ -47,8 +48,8 @@ defmodule Crawler.Mixfile do
   end
 
   defp git_tag(_args) do
-    System.cmd "git", ["tag", "v" <> Mix.Project.config[:version]]
-    System.cmd "git", ["push"]
-    System.cmd "git", ["push", "--tags"]
+    System.cmd("git", ["tag", "v" <> Mix.Project.config()[:version]])
+    System.cmd("git", ["push"])
+    System.cmd("git", ["push", "--tags"])
   end
 end
