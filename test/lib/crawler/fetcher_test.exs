@@ -45,6 +45,7 @@ defmodule Crawler.FetcherTest do
     refute Store.find(url).body
   end
 
+  @tag :skip
   test "failure: timeout", %{bypass: bypass, url: url} do
     url = "#{url}/fetcher/timeout"
 
@@ -58,8 +59,8 @@ defmodule Crawler.FetcherTest do
       |> Map.merge(%{url: url, timeout: 5})
       |> Fetcher.fetch
 
-      assert fetcher == {:error, "Failed to fetch #{url}, reason: timeout"}
       refute Store.find(url).body
+      assert fetcher == {:error, "Failed to fetch #{url}, reason: timeout"}
     end
   end
 
